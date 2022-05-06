@@ -47,8 +47,8 @@ for(cluster_i in cluster_ids){
       #i
       indat2[i,]
       name <- indat2[i,names_col]
-      inputs <- unlist(lapply(strsplit(indat2[i,in_col], ","), str_trim))
-      outputs <- unlist(lapply(strsplit(indat2[i,out_col], ","), str_trim))
+      inputs <- unlist(lapply(strsplit(indat2[i,in_col], ","), trimws))
+      outputs <- unlist(lapply(strsplit(indat2[i,out_col], ","), trimws))
       desc <- indat2[i,desc_col]
 
 
@@ -93,8 +93,8 @@ nodes_graph <- paste(nodes_graph, "}\n\n")
       #i
       indat2[i,]
       name <- indat2[i,names_col]
-      inputs <- unlist(lapply(strsplit(indat2[i,in_col], ","), str_trim))
-      outputs <- unlist(lapply(strsplit(indat2[i,out_col], ","), str_trim))
+      inputs <- unlist(lapply(strsplit(indat2[i,in_col], ","), trimws))
+      outputs <- unlist(lapply(strsplit(indat2[i,out_col], ","), trimws))
       desc <- indat2[i,desc_col]
 
       if(nchar(name) > 140) print("that's a long name. consider shortening this")
