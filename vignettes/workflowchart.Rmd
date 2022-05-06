@@ -18,3 +18,10 @@ nodes <- workflowchart(indat = steps, names_col = "name", in_col = "from", out_c
                        #, clusters_col = "CLUSTER", todo_col="STATUS")
 DiagrammeR::grViz(nodes)
 ```
+
+If you like to show it sideways horizontally:
+
+```{r, eval = T}
+nodes <- workflowchart(indat = steps, names_col = "name", in_col = "from", out_col = "to", sideways = T)
+DiagrammeR::grViz(nodes)
+```

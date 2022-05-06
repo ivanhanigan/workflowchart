@@ -23,3 +23,14 @@ DiagrammeR::grViz(nodes)
 ```
 
 ![](inst/workflowchart_demo.png)
+
+
+If you like to show it sideways horizontally:
+
+```r
+nodes <- workflowchart(indat = steps, names_col = "name", in_col = "from", out_col = "to", sideways = T)
+DiagrammeR::grViz(nodes)
+```
+
+
+![](inst/workflowchart_demo_sideways.png)

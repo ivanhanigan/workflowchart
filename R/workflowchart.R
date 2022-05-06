@@ -8,7 +8,7 @@
 #' @param clusters_col optional column identifying clusters
 #' @param todo_col optional column with TODO status (DONE and WONTDO will be white, others are red)
 #' @return character string object that has the DOT language representatio of the input
-workflowchart <- function(indat, names_col = NULL, in_col = NULL, out_col = NULL, desc_col = NULL, clusters_col = NULL, todo_col = NULL, nchar_to_snip = 40){
+workflowchart <- function(indat, names_col = NULL, in_col = NULL, out_col = NULL, desc_col = NULL, clusters_col = NULL, todo_col = NULL, nchar_to_snip = 40, sideways = F){
 if (is.null(names_col)) stop("Names of the steps are needed")
 if (is.null(in_col)) stop("Inputs are needed")
 if (is.null(out_col)) stop("Outputs are needed")
@@ -129,6 +129,12 @@ strng <- sprintf('%s\n%s  [ shape=record, label="{{ { Name | Description } | { %
 nodes_graph <- paste("digraph transformations {\n\n",
                      nodes_graph,
                      "}\n")
+
+if(sideways){
+  nodes_graph <- gsub("digraph transformations \\{", "digraph transformations \\{ rankdir=LR;", nodes_graph)
+  nodes_graph <- gsub('label="\\{\\{', 'label="\\{', nodes_graph)
+  nodes_graph <- gsub('\\{\\{]', '\\{]', nodes_graph)
+}
 
 cat('# to run this graph
 sink("file_name.dot")
