@@ -1,0 +1,6 @@
+tmp <- DiagrammeR::grViz(diagram = nodes)
+# 2. Convert to SVG, then save as png
+tmp <- DiagrammeRsvg::export_svg(tmp)
+tmp <- charToRaw(tmp) # flatten
+rsvg::rsvg_png(tmp, sprintf("inst/%s.png", "workflowchart_demo")) # saved graph as png in current working directory
+
