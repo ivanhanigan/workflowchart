@@ -34,3 +34,20 @@ DiagrammeR::grViz(nodes)
 
 
 ![](inst/workflowchart_demo_sideways.png)
+
+
+```
+Version: 0.1
+Author: Ivan Hanigan
+Maintainer: Ivan Hanigan <ivan.hanigan@gmail.com>
+License: MIT
+```
+
+## Installation notes
+
+- Vignettes are being added. These are not built by devtools by default, need to use 
+
+```r
+library(devtools)
+install_github("ivanhanigan/workflowchart", build_vignettes = TRUE)
+`
