@@ -111,8 +111,13 @@ workflowchart2 <- function (indat, names_col = NULL, in_col = NULL, out_col = NU
             } else {
               inputs_listed <- paste(inputs, name2paste, sep = " -> ", collapse = "\n")
             }
-            outputs <- paste("\"", outputs, "\"", sep = "")
-            outputs_listed <- paste(name2paste, outputs, sep = " -> ", collapse = "\n")
+            if(length(grep("!$", outputs) == "!") >0){
+            outputs2 <- gsub("!", "", outputs)
+            outputs2 <- paste("\"", outputs2, "\"", sep = "")
+            outputs_listed <- paste(name2paste, outputs2, sep = " -> ", collapse = "\n")
+            } else {
+              outputs_listed <- ""
+            }
             # if(outputs == '\"DONTSHOW\"'){
             #   outputs_listed <- ""
             # } else {
@@ -132,6 +137,7 @@ workflowchart2 <- function (indat, names_col = NULL, in_col = NULL, out_col = NU
                   inputs_listed, name2paste, name, desc, posi,
                   outputs_listed)
             }
+            
             nodes_graph <- paste(nodes_graph, strng, "\n")
         }
     }

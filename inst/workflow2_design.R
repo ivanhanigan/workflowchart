@@ -1,16 +1,31 @@
 # library(workflowchart)
 # 
-# 
-source("R/workflowchart2.R")
-steps <- data.frame(name = c("do 1.1", "do 2.1", "do 3", "do 3"),
-                    from = c("DONTSHOW", "2", "1.1", "2.1"),
-                    to = c("1.1", "2.1", "3", "3"),
-                    pos = c("-10,-10!", "-10,-5!", "0,0!", "")
-                    )
-# knitr::kable(steps)
-# write.csv(steps, "inst/mindmap_plan.csv", row.names = F)
-steps <- read.csv("inst/mindmap_plan.csv", stringsAsFactors = T)
-steps$desc <- "" #ifelse(is.na(steps$desc), "", steps$desc)
+# check if in working directory or not and move if needed
+if(file.exists("inst")) setwd("inst")
+source("../R/workflowchart2.R")
+# steps <- data.frame(name = c("do 1.1", "do 2.1", "do 3", "do 3", "1.1"),
+#                     from = c("1", "2", "1.1", "2.1", "do 1.1"),
+#                     to = c("1.1", "2.1", "3", "3", "do 3"),
+#                     pos = c("-10,-10!", "-10,-5!", "0,-10!", "0,-10!", "-5,-10!"),
+#                     cluster = c("second", "first", "second", "second", "second")
+#                     )
+steps<-read.table(textConnection("name|from|to|pos|cluster|desc
+do2.1|2|2.1|-10,-5!|first|
+2.1|do2.1|do3|-5,-8!|first|
+do1.1|1|1.1|-10,-10!|second|
+do3|1.1|3|0,-10!|second|
+do3|2.1|3|0,-10!|second|
+1.1|do1.1|do3|-5,-10!|second|
+3|do3|do3|2.5,-11.5!|second|
+"),
+                                   sep = "|",
+                                   header = T)
+
+ knitr::kable(steps)
+# write.csv(steps, "mindmap_plan.csv", row.names = F)
+# steps <- read.csv("mindmap_plan.csv", stringsAsFactors = T)
+knitr::kable(steps)
+steps$desc <- ifelse(is.na(steps$desc), "", steps$desc)
 nodes <- workflowchart2(
   indat = steps
   , 
@@ -19,11 +34,15 @@ nodes <- workflowchart2(
   in_col = "from"
   , 
   out_col = "to"
-  , 
-  pos_col = "pos"
-  )#, 
-                        #desc_col = "desc")#,
-                        #clusters_col = "cluster")
+ ,
+ desc_col = "desc"
+ ,
+ pos_col = "pos")
+ # ,
+ # clusters_col = "cluster"
+ # )#,
+                        
+                        #
                         #,
                         #todo_col = "todo")
 cat(nodes)
